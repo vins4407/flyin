@@ -1,8 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:flyin/screens/addpost.dart';
-// import 'package:flyin/screens/feedScreen.dart';
+import 'package:flutter/material.dart';
+import 'package:flyin/screens/addpost.dart';
+import 'package:flyin/screens/feedScreen.dart';
 
-// List<Widget> homeScreenItems = [
-//   const FeedScreen(),
-//   const AddPostScreen(),
-// ];
+List<Widget> homeScreenItems = [
+  const FeedScreen(),
+  const AddPostScreen(),
+];

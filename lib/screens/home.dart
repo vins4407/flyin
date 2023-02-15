@@ -43,7 +43,7 @@ class _homeScreenState extends State<homeScreen> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-       // children: homeScreenItems,
+        children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: Colors.greenAccent,
@@ -51,7 +51,7 @@ class _homeScreenState extends State<homeScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: (_page == 0) ? primaryColor : secondaryColor,
+              color: (_page == 0) ? white : secondaryColor,
             ),
             label: '',
             backgroundColor: primaryColor,
@@ -59,7 +59,7 @@ class _homeScreenState extends State<homeScreen> {
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.add_circle,
-                color: (_page == 1 ) ? primaryColor : secondaryColor,
+                color: (_page == 1 ) ? white : secondaryColor,
               ),
               label: '',
               backgroundColor: primaryColor),

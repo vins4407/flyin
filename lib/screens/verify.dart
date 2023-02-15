@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flyin/screens/home.dart';
 import 'package:flyin/screens/login.dart';
 import 'package:flyin/screens/sign_up.dart';
+import 'package:flyin/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -128,7 +129,7 @@ class _verificationState extends State<verification> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green.shade600,
+                        backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
@@ -151,13 +152,8 @@ class _verificationState extends State<verification> {
               Row(
                 children: [
                   TextButton(
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          login.id,
-                          (route) => false,
-                        );
-                      },
+                    
+                      onPressed: (){},
                       child: Text(
                         "Edit Phone Number ?",
                         style: TextStyle(color: Colors.black54, fontSize: 15),

@@ -1,56 +1,51 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Post {
-  final String description;
-  final String title;
-  final String category;
-  final String location;
-  final String uid;
-  final String username;
-  final likes;
-  final String postId;
-  final DateTime datePublished;
-  final String postUrl;
-  final String profImage;
+  String? description;
+  String? title;
+  String? category;
+  String? location;
+  String uid;
+  String? username;
+  String? postId;
+  DateTime? datePublished;
+  String? postUrl;
+  final String? profImage;
 
-  const Post({
-    required this.title,
-    required this.category,
-    required this.location,
-    required this.description,
+  Post({
+    this.title,
+    this.category,
+    this.location,
+    this.description,
     required this.uid,
-    required this.username,
-    required this.likes,
-    required this.postId,
-    required this.datePublished,
-    required this.postUrl,
-    required this.profImage,
+    this.username,
+    this.postId,
+    this.datePublished,
+    this.postUrl,
+    this.profImage,
   });
 
-  static Post fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
-
+  Post fromMap(Map<String, dynamic> map) {
     return Post(
-        description: snapshot["description"],
-        title: snapshot['title'],
-        location: snapshot['location'],
-        category: snapshot['category'],
-        uid: snapshot["uid"],
-        likes: snapshot["likes"],
-        postId: snapshot["postId"],
-        datePublished: snapshot["datePublished"],
-        username: snapshot["username"],
-        postUrl: snapshot['postUrl'],
-        profImage: snapshot['profImage']);
+      title: map['title'],
+      category: map['category'],
+      location: map['location'],
+      description: map['description'],
+      uid: map['uid'],
+      username: map['username'],
+      postId: map['postId'],
+      datePublished: map['date'],
+      postUrl: map['postUrl'],
+      profImage: map['profImage'],
+    );
   }
 
   Map<String, dynamic> toJson() => {
         "description": description,
-        "title":title,
-        "category":category,
-        "location":location,
+        "title": title,
+        "category": category,
+        "location": location,
         "uid": uid,
-        "likes": likes,
         "username": username,
         "postId": postId,
         "datePublished": datePublished,

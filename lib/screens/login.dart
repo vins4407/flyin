@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flyin/screens/home.dart';
 import 'package:flyin/screens/verify.dart';
+import 'package:flyin/utils/colors.dart';
 import 'package:get/get.dart';
 
 import '../controllers/authcontroller.dart';
@@ -45,11 +46,14 @@ class _MyPhoneState extends State<login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Image.asset(
-              //   'assets/img1.png',
-              //   width: 150,
-              //   height: 150,
-              // ),
+              Text('Flyin',
+                  style: TextStyle(
+                      color: mobileBackgroundColor,
+                      fontSize: 50,
+                      fontFamily: "Pacifico")),
+              const SizedBox(
+                height: 34,
+              ),
               SizedBox(
                 height: 25,
               ),
@@ -67,7 +71,6 @@ class _MyPhoneState extends State<login> {
                 ),
                 textAlign: TextAlign.center,
               ),
-
               SizedBox(
                 height: 30,
               ),
@@ -121,7 +124,7 @@ class _MyPhoneState extends State<login> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green.shade600,
+                        backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {

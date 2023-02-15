@@ -72,6 +72,7 @@ class _UserInfoState extends State<userinfo> {
     final TextEditingController _phoneController = TextEditingController();
     final TextEditingController _bioController = TextEditingController();
     final PhoneAuthController loginController = Get.find();
+    var auth = FirebaseAuth.instance;
 
     _phoneController.text = PhoneAuthController.usernumber.substring(3);
 
@@ -117,6 +118,7 @@ class _UserInfoState extends State<userinfo> {
                   )
                 ],
               ),
+
               const SizedBox(
                 height: 24,
               ),
@@ -127,7 +129,7 @@ class _UserInfoState extends State<userinfo> {
                   fillColor: Colors.blueGrey,
                   hintText: 'Enter your username',
                 ),
-                onChanged: (value) {
+                onSubmitted: (value) {
                   _usernameController.text = value;
                 },
               ),
@@ -140,21 +142,14 @@ class _UserInfoState extends State<userinfo> {
                 decoration: InputDecoration(
                   hintText: 'Enter your email',
                 ),
-                onChanged: (value) {
+                onSubmitted: (value) {
                   _emailController.text = value;
                 },
               ),
               const SizedBox(
                 height: 24,
               ),
-              // TextField(
-              //   obscureText: true,
-              //   controller: _passwordController,
-              //   keyboardType: TextInputType.visiblePassword,
-              //   decoration: InputDecoration(
-              //     hintText: 'Enter your password',
-              //   ),
-              // ),
+
               const SizedBox(
                 height: 24,
               ),
@@ -164,6 +159,9 @@ class _UserInfoState extends State<userinfo> {
                 decoration: InputDecoration(
                   hintText: 'Enter your bio',
                 ),
+                onSubmitted: (value) {
+                  _bioController.text = value;
+                },
               ),
 
               const SizedBox(
@@ -179,7 +177,8 @@ class _UserInfoState extends State<userinfo> {
                       email: _emailController.text,
                       phone: _phoneController.text,
                       photoUrl: photoUrl,
-                      bio: _bioController.text);
+                      bio: _bioController.text,
+                      uId: auth.currentUser?.uid);
                   loginController.createUser(userdata, const homeScreen());
                 },
                 child: Container(
@@ -190,7 +189,7 @@ class _UserInfoState extends State<userinfo> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
-                    color: blueColor,
+                    color: gColor,
                   ),
                   child: !_isLoading
                       ? const Text(
@@ -199,7 +198,7 @@ class _UserInfoState extends State<userinfo> {
                               color: Colors.black, fontWeight: FontWeight.bold),
                         )
                       : const CircularProgressIndicator(
-                          color: primaryColor,
+                          color: gColor,
                         ),
                 ),
               ),
