@@ -9,7 +9,6 @@ import '../controllers/authcontroller.dart';
 
 class login extends StatefulWidget {
   static const String id = 'loginScreen';
-  static var verify = "";
   const login({Key? key}) : super(key: key);
 
   @override
@@ -39,6 +38,7 @@ class _MyPhoneState extends State<login> {
     FirebaseAuth auth = FirebaseAuth.instance;
 
     return Scaffold(
+      backgroundColor: mobileBackgroundColor,
       body: Container(
         margin: EdgeInsets.only(left: 28, right: 28),
         alignment: Alignment.center,
@@ -48,7 +48,8 @@ class _MyPhoneState extends State<login> {
             children: [
               Text('Flyin',
                   style: TextStyle(
-                      color: mobileBackgroundColor,
+
+                      color: white,
                       fontSize: 50,
                       fontFamily: "Pacifico")),
               const SizedBox(
@@ -59,7 +60,7 @@ class _MyPhoneState extends State<login> {
               ),
               Text(
                 "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(color:white,fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 10,
@@ -67,6 +68,7 @@ class _MyPhoneState extends State<login> {
               Text(
                 "We need to register your phone without getting started!",
                 style: TextStyle(
+                  color:white,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
@@ -88,6 +90,7 @@ class _MyPhoneState extends State<login> {
                     SizedBox(
                       width: 40,
                       child: TextField(
+                        style:TextStyle(color: white),
                         controller: countryController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -104,13 +107,16 @@ class _MyPhoneState extends State<login> {
                     ),
                     Expanded(
                         child: TextField(
+                        style:TextStyle(color: white),
+
                       onChanged: ((value) {
                         phone = value;
                       }),
                       keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "Phone",
+                        hintStyle: TextStyle( color: white),
                       ),
                     ))
                   ],
@@ -128,18 +134,7 @@ class _MyPhoneState extends State<login> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
-                      // await FirebaseAuth.instance.verifyPhoneNumber(
-                      //   phoneNumber: '${countryController.text + phone}',
-                      //   verificationCompleted:
-                      //       (PhoneAuthCredential credential) async {},
-                      //   verificationFailed: (FirebaseAuthException e) {},
-                      //   codeSent: (String verificationId, int? resendToken) {
-                      //     login.verify = verificationId;
-                      //     Navigator.pushNamed(context, verification.id);
-                      //   },
-                      //   codeAutoRetrievalTimeout: (String verificationId) {},
-                      // );
-                      loginController
+                                           loginController
                           .verifyPhone('${countryController.text + phone}');
                       Get.to(() => const verification());
                     },

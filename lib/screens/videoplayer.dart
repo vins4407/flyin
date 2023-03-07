@@ -19,7 +19,7 @@ class _VideoState extends State<Video> {
   @override
   void initState() {
     super.initState();
-    videoPlayerController = new VideoPlayerController.network(widget.url);
+    videoPlayerController =  VideoPlayerController.network(widget.url);
     _initializeVideoPlayerFuture = videoPlayerController.initialize().then((_) {
       setState(() {});
     });
@@ -28,7 +28,6 @@ class _VideoState extends State<Video> {
   @override
   void dispose() {
     videoPlayerController.dispose();
-    //    widget.videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -38,12 +37,13 @@ class _VideoState extends State<Video> {
       future: _initializeVideoPlayerFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return  Chewie(
-            key:  PageStorageKey(widget.url),
+          return Chewie(
+            key: PageStorageKey(widget.url),
             controller: ChewieController(
-              controlsSafeAreaMinimum: EdgeInsets.zero,
+              controlsSafeAreaMinimum: EdgeInsets.all(10),
               videoPlayerController: videoPlayerController,
-              aspectRatio: 3/2,
+              allowFullScreen: true,
+              aspectRatio: 3 / 2,
               autoInitialize: true,
               looping: false,
               autoPlay: false,

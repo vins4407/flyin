@@ -77,6 +77,7 @@ class _UserInfoState extends State<userinfo> {
     _phoneController.text = PhoneAuthController.usernumber.substring(3);
 
     return Scaffold(
+      backgroundColor: mobileBackgroundColor,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
@@ -85,12 +86,8 @@ class _UserInfoState extends State<userinfo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Flexible(
-              //   child: Container(),
-              //   flex: 2,
-              // ),
               Text('flyin',
-                  style: TextStyle(fontSize: 40, fontFamily: "Pacifico")),
+                  style: TextStyle( color:white,fontSize: 40, fontFamily: "Pacifico")),
               const SizedBox(
                 height: 34,
               ),
@@ -113,7 +110,7 @@ class _UserInfoState extends State<userinfo> {
                     left: 80,
                     child: IconButton(
                       onPressed: selectImage,
-                      icon: const Icon(Icons.add_a_photo),
+                      icon: const Icon(Icons.add_a_photo,color: white),
                     ),
                   )
                 ],
@@ -123,11 +120,13 @@ class _UserInfoState extends State<userinfo> {
                 height: 24,
               ),
               TextField(
+                style: TextStyle(color: white),
                 controller: _usernameController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   fillColor: Colors.blueGrey,
                   hintText: 'Enter your username',
+                  hintStyle: TextStyle(color:white)
                 ),
                 onSubmitted: (value) {
                   _usernameController.text = value;
@@ -137,10 +136,14 @@ class _UserInfoState extends State<userinfo> {
                 height: 24,
               ),
               TextField(
+                                style: TextStyle(color: white),
+
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Enter your email',
+                                    hintStyle: TextStyle(color:white)
+
                 ),
                 onSubmitted: (value) {
                   _emailController.text = value;
@@ -154,10 +157,14 @@ class _UserInfoState extends State<userinfo> {
                 height: 24,
               ),
               TextField(
+                                style: TextStyle(color: white),
+
                 controller: _bioController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   hintText: 'Enter your bio',
+                                    hintStyle: TextStyle(color:white)
+
                 ),
                 onSubmitted: (value) {
                   _bioController.text = value;
@@ -182,6 +189,7 @@ class _UserInfoState extends State<userinfo> {
                   loginController.createUser(userdata, const homeScreen());
                 },
                 child: Container(
+
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -189,13 +197,13 @@ class _UserInfoState extends State<userinfo> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
-                    color: gColor,
+                    color: primaryColor,
                   ),
                   child: !_isLoading
                       ? const Text(
                           'Sign up',
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                              color: white, fontWeight: FontWeight.bold),
                         )
                       : const CircularProgressIndicator(
                           color: gColor,

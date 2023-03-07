@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/user.dart';
+import '../utils/colors.dart';
 
 class PhoneAuthController extends GetxController {
   static Map<String, dynamic> useralldata = {};
@@ -27,10 +28,10 @@ class PhoneAuthController extends GetxController {
       }),
       verificationFailed: (FirebaseAuthException e) {
         var mess = e.message;
-        Get.snackbar("Verification Failed", "$mess");
+        Get.snackbar("Verification Failed", "$mess",colorText:white);
       },
       codeSent: ((verificationId, forceResendingToken) {
-        Get.snackbar("Code Sent", "please fill it properly");
+        Get.snackbar("Code Sent", "please fill it properly",colorText:white);
         varId = verificationId;
       }),
       codeAutoRetrievalTimeout: ((verificationId) {}),
@@ -85,7 +86,6 @@ class PhoneAuthController extends GetxController {
 
   updateUserData(Map<String, dynamic> data) {
     var docid = auth.currentUser?.uid.toString();
-    // logger.i("UPDATED");
     _instance.collection('users').doc(docid).update(data);
   }
 }

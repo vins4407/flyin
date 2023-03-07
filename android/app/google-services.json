@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "502311676713",
-    "project_id": "flyin-ca9fd",
-    "storage_bucket": "flyin-ca9fd.appspot.com"
+    "project_number": "1009960693208",
+    "project_id": "flyin-382a0",
+    "storage_bucket": "flyin-382a0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:502311676713:android:121ada8a575d5981b8e538",
+        "mobilesdk_app_id": "1:1009960693208:android:ddf0fad2e9473a919316ad",
         "android_client_info": {
           "package_name": "com.example.flyin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "502311676713-aot86rn0mf6csce6f6ismvjos3f4gtuf.apps.googleusercontent.com",
+          "client_id": "1009960693208-pdcqbuasqpa6nqe9n32gm1rd1ue5m4uv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.flyin",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "502311676713-ofis70d8f5gh8l1darlmo768e52u3r43.apps.googleusercontent.com",
+          "client_id": "1009960693208-vvbu4tv7qmr8ohl6f8klvvu3ua7hcdfb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCRiQ0Le5JRHM160Rgs22sRrX7XgbjDHOs"
+          "current_key": "AIzaSyB_HlWhy-nF76JQrA6SwO-gqY4pTyXHszk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "502311676713-ofis70d8f5gh8l1darlmo768e52u3r43.apps.googleusercontent.com",
+              "client_id": "1009960693208-vvbu4tv7qmr8ohl6f8klvvu3ua7hcdfb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

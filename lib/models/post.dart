@@ -25,6 +25,38 @@ class Post {
     this.profImage,
   });
 
+  static Post frommap(Map<String, dynamic> map) {
+    return Post(
+      title: map['title'],
+      category: map['category'],
+      location: map['location'],
+      description: map['description'],
+      uid: map['uid'],
+      username: map['username'],
+      postId: map['postId'],
+      datePublished: map['date'],
+      postUrl: map['postUrl'],
+      profImage: map['profImage'],
+    );
+  }
+  factory Post.fromFirestore(DocumentSnapshot doc) {
+    Map data = doc.data() as Map<String, dynamic>;
+    print(data);
+    return Post(
+      description: data['description'],
+      title: data['title'],
+      category: data['category'],
+      location: data['location'],
+      uid: data['uid'],
+      username: data['username'],
+      postId: data['postId'],
+      datePublished: data['datePublished'].toDate(),
+      postUrl: data['postUrl'],
+      profImage: data['profImage'],
+    );
+  }
+
+
   Post fromMap(Map<String, dynamic> map) {
     return Post(
       title: map['title'],
@@ -39,6 +71,8 @@ class Post {
       profImage: map['profImage'],
     );
   }
+
+  
 
   Map<String, dynamic> toJson() => {
         "description": description,

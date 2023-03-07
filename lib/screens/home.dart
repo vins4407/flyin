@@ -13,7 +13,7 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   int _page = 0;
   late PageController pageController; // for tabs animation
-  
+
   @override
   void initState() {
     super.initState();
@@ -46,22 +46,24 @@ class _homeScreenState extends State<homeScreen> {
         children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
-        backgroundColor: Colors.greenAccent,
+        backgroundColor:  Colors.black87,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
               color: (_page == 0) ? white : secondaryColor,
+              size: (_page == 0) ? 40 : 30,
             ),
-            label: '',
-            backgroundColor: primaryColor,
+                        backgroundColor: primaryColor,
           ),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.add_circle,
-                color: (_page == 1 ) ? white : secondaryColor,
+                color: (_page == 1) ? white : secondaryColor,
+                size: (_page == 1) ? 40 : 30,
+
               ),
-              label: '',
+
               backgroundColor: primaryColor),
         ],
         onTap: navigationTapped,

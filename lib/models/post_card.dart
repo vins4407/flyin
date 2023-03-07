@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import '../utils/colors.dart';
 import '../screens/videoplayer.dart';
 
 class PostCard extends StatefulWidget {
@@ -31,45 +31,23 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.snap['datePublished']);
     final Timestamp timestamp = widget.snap['datePublished'];
-    // print(timestamp);
-    final DateTime date1 =
-        DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
+    //print(timestamp);
+    final DateTime date1 = DateTime.fromMillisecondsSinceEpoch(timestamp.seconds * 1000);
     final date2 = DateTime.now();
     final difference = daysBetween(date1, date2);
     print(difference);
+
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 250,
-              alignment: Alignment.center,
-              child: Container(
-                key: new PageStorageKey(
-                  widget.index,
-                ),
-                child: Video(play: true, url: widget.snap['postUrl']),
-              ),
-            ),
-            // Positioned(
-            //   bottom: 8.0,
-            //   right: 20.0,
-            //   child: Container(
-            //     padding: const EdgeInsets.all(4.0),
-            //     color: Colors.black,
-            //     child: Text(
-            //       '1:20',
-            //       style: Theme.of(context)
-            //           .textTheme
-            //           .bodySmall!
-            //           .copyWith(color: Colors.white),
-            //     ),
-            //   ),
-            // ),
-          ],
+        Container(
+          width: double.infinity,
+          height: 250,
+          key: new PageStorageKey(
+            widget.index,
+          ),
+          child: Video(play: true, url: widget.snap['postUrl']),
         ),
         Padding(
           padding: const EdgeInsets.all(12.0),
@@ -90,44 +68,41 @@ class _PostCardState extends State<PostCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Flexible(
-                      child: Text(
-                        widget.snap['title'],
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 15.0),
-                      ),
+                      child: Text(widget.snap['title'],
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: white,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    Flexible(
+                      child: Text(widget.snap['location'],
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: white,
+                          )),
                     ),
                     Flexible(
                       child: Text(
-                        widget.snap['location'],
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 15.0),
-                      ),
-                    ),
-                    Flexible(
-                      child: Text(
-                        '${widget.snap['username']} • 20k views •${difference + 1} days ago',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(fontSize: 14.0),
-                      ),
+                          '${widget.snap['username']} • 20k views •${difference + 1} days ago',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: white,
+                            fontWeight: FontWeight.w100,
+                          )),
                     ),
                   ],
                 ),
               ),
               GestureDetector(
                 onTap: () {},
-                child: const Icon(Icons.more_vert, size: 20.0),
+                child: const Icon(Icons.more_vert, size: 20.0, color: white),
               ),
             ],
           ),

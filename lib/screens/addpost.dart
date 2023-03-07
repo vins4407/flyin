@@ -1,17 +1,17 @@
 import 'dart:typed_data';
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flyin/controllers/authcontroller.dart';
 import 'package:flyin/controllers/locationController.dart';
 import 'package:flyin/controllers/postController.dart';
 import 'package:flyin/models/post.dart';
-import 'package:flyin/screens/feedScreen.dart';
 import 'package:flyin/screens/home.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import '../controllers/storageController.dart';
-
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
@@ -22,13 +22,29 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   final PostController _postController = Get.find();
+  Uint8List? _thumbnailData;
+
   var _file;
   bool isloading = false;
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+
   String username = PhoneAuthController.useralldata['username'];
+
+  // Future<void> _generateThumbnail(Uint8List _videoData) async {
+  //    if (_videoData != null) {
+  //     final thumbnailData = await VideoThumbnail.thumbnailData(
+  //       video: _videoData,
+  //       imageFormat: ImageFormat.JPEG,
+  //       quality: 50,
+  //     );
+  //     setState(() {
+  //       _thumbnailData = thumbnailData;
+  //     });
+  //   }
+  // }
 
   pickvideo(ImageSource source) async {
     ImagePicker _imagePicker = ImagePicker();
@@ -51,23 +67,26 @@ class _AddPostScreenState extends State<AddPostScreen> {
               padding: const EdgeInsets.all(20),
               child: Text('Take a Video'),
               onPressed: () async {
-                Navigator.pop(context);
-                Uint8List file = await pickvideo(ImageSource.camera);
+                Uint8List? file = await pickvideo(ImageSource.camera);
 
+                // _generateThumbnail(file);
                 setState(() {
                   _file = file;
                 });
+                Navigator.pop(context);
               },
             ),
             SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
                 child: const Text('Choose from Gallery'),
                 onPressed: () async {
-                  Navigator.of(context).pop();
-                  Uint8List file = await pickvideo(ImageSource.gallery);
+                  Uint8List? file = await pickvideo(ImageSource.gallery);
+                  // _generateThumbnail(file);
+
                   setState(() {
                     _file = file;
                   });
+                  Navigator.of(context).pop();
                 }),
             SimpleDialogOption(
               padding: const EdgeInsets.all(20),
@@ -81,22 +100,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
       },
     );
   }
-
-  // void postVideo(String uid, String username) async {
-  //   setState(() {
-  //     isloading = true;
-  //   });
-  //   try {
-  //     String res = await firestoreMethods().uploadPost(
-  //         _descriptionController.text,
-  //         uid,
-  //         username,
-  //         PhoneAuthController.useralldata['photoUrl'],
-  //         _categoryController.text,
-  //         _titleController.text,
-  //         postUrl);
-  //   } catch (e) {}
-  // }
 
   void clear() {
     setState(() {
@@ -112,20 +115,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
     _titleController.dispose();
   }
 
-  // final path='files/${_file}';
-
   @override
   Widget build(BuildContext context) {
-    //final UserProvider userProvider = Provider.of<UserProvider>(context);
-
-    //final photoUrl = userProvider.getUser.photoUrl!;
-
     return _file == null
         ? Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Center(
               child: IconButton(
                 onPressed: () {
-                  _selectVideo(context);
+                  setState(() {
+                    _selectVideo(context);
+                  });
                 },
                 icon: Icon(
                   Icons.add_a_photo_outlined,
@@ -143,9 +142,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
           ])
         : Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             appBar: AppBar(
-              backgroundColor: Colors.greenAccent,
+              backgroundColor:  Colors.black87,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: clear,
@@ -171,9 +170,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         datePublished: DateTime.now(),
                         postUrl: posturl,
                         profImage: PhoneAuthController.useralldata['photoUrl']);
+                    print(postData);
                     clear();
-                    _postController.createPost(postData, homeScreen(),postid);
-
+                    _postController.createPost(postData, homeScreen(), postid);
                     Get.snackbar('Posted', 'video Uploaded Successfully');
                   },
                   child: const Text(
@@ -187,7 +186,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ],
             ),
             // POST FORM
-            body: SafeArea(
+            body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -207,19 +206,15 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 200.0,
-                        width: 200.0,
-                        child: Container(
-                          color: Colors.red,
-                        ),
-                      ),
+                      FractionallySizedBox(
+                        child: Image(image: AssetImage('assets/video.png')),
+                      )
                     ],
                   ),
                   const Divider(),
                   Container(
                     height: 55,
-                    width: 200,
+                    width: 300,
                     decoration: BoxDecoration(
                         border: Border.all(width: 1, color: Colors.grey),
                         borderRadius: BorderRadius.circular(10)),
@@ -239,22 +234,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         ),
                       ),
                     ),
-                  ),
-                  const Divider(),
-                  Text(
-                    '${_locationController.text}',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const Divider(),
-                  ElevatedButton(
-                    onPressed: () async {
-                      _locationController.text =
-                          await LocationMethods().getLocation();
-                      setState(() {
-                        _locationController.text;
-                      });
-                    },
-                    child: const Text('Get Location'),
                   ),
                   const Divider(),
                   Container(
@@ -305,6 +284,25 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     ),
                   ),
                   const Divider(),
+                  Row(
+                    children: [
+                      Text(
+                        '${_locationController.text}',
+                        style: TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.bold),
+                      ),
+                      ElevatedButton( 
+                        onPressed: () async {
+                          _locationController.text =
+                              await LocationMethods().getLocation();
+                          setState(() {
+                            _locationController.text;
+                          });
+                        },
+                        child: Icon(Icons.location_on),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

@@ -43,6 +43,7 @@ class _verificationState extends State<verification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    backgroundColor: mobileBackgroundColor,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -52,7 +53,7 @@ class _verificationState extends State<verification> {
           },
           icon: Icon(
             Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+            color: white,
           ),
         ),
         elevation: 0,
@@ -74,7 +75,7 @@ class _verificationState extends State<verification> {
               ),
               Text(
                 "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(color:white,fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 10,
@@ -82,6 +83,7 @@ class _verificationState extends State<verification> {
               Text(
                 "We need to register your phone without getting started!",
                 style: TextStyle(
+                  color:white,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,
@@ -95,6 +97,7 @@ class _verificationState extends State<verification> {
                 obscureText: true,
                 animationType: AnimationType.slide,
                 pinTheme: PinTheme(
+                  
                   shape: PinCodeFieldShape.box,
                   borderRadius: BorderRadius.circular(5),
                   fieldHeight: 50,
@@ -147,7 +150,7 @@ class _verificationState extends State<verification> {
 
                       loginController.verifyOtp(code, userinfo());
                     },
-                    child: Text("Verify Phone Number")),
+                    child: Text("Verify Phone Number" ,style: TextStyle(color:white),)),
               ),
               Row(
                 children: [
@@ -156,7 +159,7 @@ class _verificationState extends State<verification> {
                       onPressed: (){},
                       child: Text(
                         "Edit Phone Number ?",
-                        style: TextStyle(color: Colors.black54, fontSize: 15),
+                        style: TextStyle(color:Colors.white38, fontSize: 15),
                       )),
                 ],
               ),
@@ -164,7 +167,7 @@ class _verificationState extends State<verification> {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                     text: "Didn't receive the code? ",
-                    style: TextStyle(color: Colors.black54, fontSize: 15),
+                    style: TextStyle(color: white, fontSize: 15),
                     children: [
                       TextSpan(
                           text: " RESEND",
